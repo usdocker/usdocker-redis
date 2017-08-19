@@ -55,3 +55,11 @@ Default values
  - folder: "$HOME/.usdocker/data/redis",
  - port: 0
 
+## Customize $HOME/.usdocker/setup/redis/conf/redis.conf
+
+You can setup your redis by setup the file "redis.conf".
+
+Note that default configuration requires the password "`password`".
+
+You can just changed the "`requirepass`" field. 
+

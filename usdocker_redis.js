@@ -8,12 +8,13 @@ const SCRIPTNAME = 'redis';
 
 let config = usdocker.config(SCRIPTNAME);
 let configGlobal = usdocker.configGlobal();
+const CONTAINERNAME = SCRIPTNAME + configGlobal.get('container-suffix');
 
 function getContainerDef() {
 
     let docker = usdocker.dockerRunWrapper(configGlobal);
     return docker
-        .containerName(SCRIPTNAME + configGlobal.get('container-suffix'))
+        .containerName(CONTAINERNAME)
         .port(config.get('port'), 6379)
         .volume(config.get('folder'), '/data')
         .volume(path.join(config.getUserDir('conf'), 'redis.conf'), '/etc/redis.conf')
@@ -41,7 +42,7 @@ module.exports = {
 
     client: function(callback, extraArgs)
     {
-        usdocker.exec(SCRIPTNAME, ['mysql'].concat(extraArgs), callback);
+        usdocker.exec(CONTAINERNAME, ['redis-cli'].concat(extraArgs), callback);
     },
 
     debugcli(callback) {
@@ -56,16 +57,16 @@ module.exports = {
 
     up: function(callback)
     {
-        usdocker.up(SCRIPTNAME, getContainerDef(), callback);
+        usdocker.up(CONTAINERNAME, getContainerDef(), callback);
     },
 
     status: function(callback) {
-        usdocker.status(SCRIPTNAME, callback);
+        usdocker.status(CONTAINERNAME, callback);
     },
 
     down: function(callback)
     {
-        usdocker.down(SCRIPTNAME, callback);
+        usdocker.down(CONTAINERNAME, callback);
     },
 
     rdm: function(callback)
@@ -86,19 +87,21 @@ module.exports = {
         ;
 
         let rdmBash = [];
-        rdmBash.push('#!/usr/bin/env bash');
-        rdmBash.push('xhost +SI:localuser:root');
-        rdmBash.push(usdocker.outputRaw('cli', docker));
-        rdmBash.push('xhost -SI:localuser:root');
+        docker.linkRunning(function () {
+            rdmBash.push('#!/usr/bin/env bash');
+            rdmBash.push('xhost +SI:localuser:root');
+            rdmBash.push(usdocker.outputRaw('cli', docker));
+            rdmBash.push('xhost -SI:localuser:root');
 
-        fs.writeFileSync('/tmp/rdm.sh', rdmBash.join('\n'));
-        fs.chmodSync('/tmp/rdm.sh', '777');
+            fs.writeFileSync('/tmp/rdm.sh', rdmBash.join('\n'));
+            fs.chmodSync('/tmp/rdm.sh', '777');
 
-        callback('Write to /tmp/rdm.sh', 'Write to /tmp/rdm.sh\n\n' + rdmBash.join('\n'));
+            callback('Write to /tmp/rdm.sh', 'Write to /tmp/rdm.sh\n\n' + rdmBash.join('\n'));
+        });
     },
 
     restart: function(callback)
     {
-        usdocker.restart(SCRIPTNAME, getContainerDef(), callback);
+        usdocker.restart(CONTAINERNAME, getContainerDef(), callback);
     }
 };

@@ -1,0 +1,57 @@
+# Useful script for 'redis' service
+
+This Useful Script creates a redis server based on a Docker Image.
+You don't have know docker to use this solution.
+
+## Installing
+
+```bash
+npm install -g usdocker-redis
+```
+
+## Start the redis service
+
+```bash
+usdocker redis up
+```
+
+## Stop the redis service
+
+```bash
+usdocker redis down
+```
+
+## Check the redis status
+
+```bash
+usdocker redis status
+```
+
+## Connect to the redis command line client
+
+```bash
+usdocker redis client -- [args]
+```
+
+## Connect to the redis desktop manager (only Linux)
+
+```bash
+usdocker redis rdm && /tmp/rdm.sh
+```
+
+
+
+## Customize your service
+
+You can setup the variables by using:
+
+```bash
+usdocker redis --set variable=value
+```
+
+Default values
+
+ - image: "redis",
+ - folder: "$HOME/.usdocker/data/redis",
+ - port: 0
+

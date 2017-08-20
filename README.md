@@ -51,9 +51,10 @@ usdocker redis --set variable=value
 
 Default values
 
- - image: "redis",
+ - image: "redis:3-alpine",
+ - rdmImage: "benoitg/redis-desktop-manager"
  - folder: "$HOME/.usdocker/data/redis",
- - port: 0
+ - port: 6379
 
 ## Customize $HOME/.usdocker/setup/redis/conf/redis.conf
 

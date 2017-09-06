@@ -6,7 +6,7 @@ You don't have know docker to use this solution.
 ## Installing
 
 ```bash
-npm install -g usdocker-redis
+npm install -g @usdocker/usdocker @usdocker/redis
 ```
 
 ## Start the redis service

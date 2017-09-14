@@ -1,6 +1,6 @@
 {
   "name": "@usdocker/redis",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "USDocker script for redis ",
   "main": "usdocker_redis.js",
   "scripts": {
@@ -17,6 +17,6 @@
   "author": "joao@byjg.com.br",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^4.4.1"
+    "eslint": "^4.13.1"
   }
 }

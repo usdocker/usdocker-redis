@@ -4,8 +4,7 @@
   "description": "USDocker script for redis ",
   "main": "usdocker_redis.js",
   "scripts": {
-    "test": "./node_modules/.bin/eslint *.js",
-    "postinstall": "usdocker -rv"
+    "test": "./node_modules/.bin/eslint *.js"
   },
   "keywords": [
     "usdocker",

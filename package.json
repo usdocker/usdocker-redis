@@ -17,6 +17,6 @@
   "author": "joao@byjg.com.br",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^4.13.1"
+    "eslint": "^4.19.1"
   }
 }
